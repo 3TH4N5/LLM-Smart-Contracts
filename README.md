@@ -17,25 +17,77 @@ This project aims to develop an NLP pipeline for converting natural language leg
 ```
 smart-legal-contracts-nlp/
 │
-├── data/                         # Data directory
-│   ├── raw/                      # Raw legal documents
+├── .venv/                        # Python virtual environment
+│
+├── .vscode/                      # VS Code configuration
+│   ├── settings.json             # Editor settings
+│   └── tasks.json                # Custom tasks
+│
+├── data/
+│   ├── raw/
+│   │   ├── contracts/            # Raw legal contracts
+│   │   │   └── cuad/             # CUAD dataset
+│   │   └── templates/            # Accord Project templates
+│   │       ├── acceptance-of-delivery/
+│   │       ├── bill-of-lading/
+│   │       ├── car-rental-tr/
+│   │       └── ...               # Other templates
+│   │
 │   ├── processed/                # Processed data
 │   ├── models/                   # Saved ML models
 │   └── embeddings/               # Vector embeddings
 │
-├── notebooks/                    # Jupyter notebooks
+├── notebooks/                    # Jupyter notebooks for exploration
+│   ├── 01_data_exploration.ipynb
+│   ├── 02_entity_extraction.ipynb
+│   ├── 03_template_matching.ipynb
+│   └── 04_cicero_generation.ipynb
 │
-├── src/                          # Source code
+├── src/
 │   ├── preprocessing/            # Text preprocessing
+│   │   ├── __init__.py
+│   │   ├── text_cleaner.py       # Clean and normalize text
+│   │   ├── pdf_extractor.py      # Extract text from PDFs
+│   │   └── clause_segmenter.py   # Segment contracts into clauses
+│   │
 │   ├── models/                   # ML models
+│   │   ├── __init__.py
+│   │   ├── entity_extractor.py   # Extract legal entities
+│   │   ├── template_matcher.py   # Match contracts to templates
+│   │   └── data_extractor.py     # Extract Concerto data
+│   │
 │   ├── pipelines/                # Processing pipelines
+│   │   ├── __init__.py
+│   │   └── contract_processor.py # Main processing pipeline
+│   │
 │   └── utils/                    # Utilities
-│
-├── tests/                        # Unit tests
+│       ├── __init__.py
+│       ├── cicero_generator.py   # Generate Cicero markup
+│       ├── concerto_generator.py # Generate Concerto models
+│       └── evaluation.py         # Evaluation metrics
 │
 ├── app/                          # Web application
+│   ├── __init__.py
+│   ├── main.py                   # FastAPI app
+│   ├── routes.py                 # API endpoints
+│   └── templates/                # HTML templates
+│       └── index.html            # Main page
 │
-└── scripts/                      # Utility scripts
+├── scripts/                      # Utility scripts
+│   ├── download_models.py        # Download ML models
+│   ├── download_cuad.py          # Download CUAD dataset
+│   └── process_batch.py          # Process batch of contracts
+│
+├── tests/                        # Unit tests
+│   ├── __init__.py
+│   ├── test_preprocessing.py
+│   ├── test_models.py
+│   └── test_pipelines.py
+│
+├── requirements.txt              # Python dependencies
+├── README.md                     # Project documentation
+├── setup.py                      # Package installation
+└── .gitignore                    # Git ignore file
 ```
 
 ## Installation
