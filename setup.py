@@ -1,0 +1,35 @@
+from setuptools import setup, find_packages
+
+setup(
+    name="smart-legal-contracts-nlp",
+    version="0.1.0",
+    packages=find_packages(),
+    description="NLP pipeline for Smart Legal Contracts",
+    author="Your Name",
+    author_email="your.email@example.com",
+    install_requires=[
+        "transformers>=4.30.0",
+        "torch>=2.0.0",
+        "spacy>=3.6.0",
+        "sentence-transformers>=2.2.0",
+        "fastapi>=0.103.0",
+        "uvicorn>=0.23.0",
+        "pandas>=2.0.0",
+        "numpy>=1.24.0",
+        "scikit-learn>=1.3.0",
+        "matplotlib>=3.7.0",
+        "seaborn>=0.12.0",
+        "pytest>=7.4.0",
+    ],
+    python_requires=">=3.8",
+    classifiers=[
+        "Development Status :: 3 - Alpha",
+        "Intended Audience :: Legal Industry",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Topic :: Scientific/Engineering :: Artificial Intelligence",
+        "Topic :: Text Processing",
+    ],
+)

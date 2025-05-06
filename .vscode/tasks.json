@@ -1,0 +1,139 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Start Jupyter Notebook",
+      "type": "shell",
+      "command": "${command:python.interpreterPath}",
+      "args": ["-m", "jupyter", "notebook"],
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "Run Tests",
+      "type": "shell",
+      "command": "${command:python.interpreterPath}",
+      "args": ["-m", "pytest"],
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Run Tests with Coverage",
+      "type": "shell",
+      "command": "${command:python.interpreterPath}",
+      "args": ["-m", "pytest", "--cov=src", "--cov-report=html"],
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Start FastAPI Server",
+      "type": "shell",
+      "command": "${command:python.interpreterPath}",
+      "args": ["-m", "uvicorn", "app.main:app", "--reload"],
+      "isBackground": true,
+      "problemMatcher": {
+        "pattern": {
+          "regexp": "^.*Error.*$",
+          "file": 1,
+          "location": 2,
+          "message": 3
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^INFO:.*Started server process.*$",
+          "endsPattern": "^INFO:.*Application startup complete.*$"
+        }
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "Download SpaCy Model",
+      "type": "shell",
+      "command": "${command:python.interpreterPath}",
+      "args": ["-m", "spacy", "download", "en_core_web_trf"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Create Project Folders",
+      "type": "shell",
+      "command": "mkdir",
+      "args": [
+        "-p",
+        "data/raw/contracts",
+        "data/raw/templates",
+        "data/processed",
+        "data/models",
+        "data/embeddings",
+        "notebooks",
+        "src/preprocessing",
+        "src/models",
+        "src/pipelines",
+        "src/utils",
+        "tests",
+        "app/templates",
+        "scripts"
+      ],
+      "windows": {
+        "command": "cmd",
+        "args": [
+          "/c",
+          "if not exist data\\raw\\contracts mkdir data\\raw\\contracts && if not exist data\\raw\\templates mkdir data\\raw\\templates && if not exist data\\processed mkdir data\\processed && if not exist data\\models mkdir data\\models && if not exist data\\embeddings mkdir data\\embeddings && if not exist notebooks mkdir notebooks && if not exist src\\preprocessing mkdir src\\preprocessing && if not exist src\\models mkdir src\\models && if not exist src\\pipelines mkdir src\\pipelines && if not exist src\\utils mkdir src\\utils && if not exist tests mkdir tests && if not exist app\\templates mkdir app\\templates && if not exist scripts mkdir scripts"
+        ]
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Create Python Init Files",
+      "type": "shell",
+      "command": "touch",
+      "args": [
+        "src/__init__.py",
+        "src/preprocessing/__init__.py",
+        "src/models/__init__.py",
+        "src/pipelines/__init__.py",
+        "src/utils/__init__.py",
+        "app/__init__.py",
+        "tests/__init__.py"
+      ],
+      "windows": {
+        "command": "cmd",
+        "args": [
+          "/c",
+          "type nul > src\\__init__.py && type nul > src\\preprocessing\\__init__.py && type nul > src\\models\\__init__.py && type nul > src\\pipelines\\__init__.py && type nul > src\\utils\\__init__.py && type nul > app\\__init__.py && type nul > tests\\__init__.py"
+        ]
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Create .env File",
+      "type": "shell",
+      "command": "echo",
+      "args": [
+        "# Environment variables",
+        "PROJECT_ROOT=${workspaceFolder}",
+        "PYTHONPATH=${workspaceFolder}",
+        "MODEL_PATH=${workspaceFolder}/data/models",
+        "DATA_PATH=${workspaceFolder}/data",
+        "LOG_LEVEL=INFO",
+        ">> .env"
+      ],
+      "windows": {
+        "command": "cmd",
+        "args": [
+          "/c",
+          "echo # Environment variables > .env && echo PROJECT_ROOT=${workspaceFolder} >> .env && echo PYTHONPATH=${workspaceFolder} >> .env && echo MODEL_PATH=${workspaceFolder}\\data\\models >> .env && echo DATA_PATH=${workspaceFolder}\\data >> .env && echo LOG_LEVEL=INFO >> .env"
+        ]
+      },
+      "problemMatcher": []
+    }
+  ]
+}
