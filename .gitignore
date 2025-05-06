@@ -46,7 +46,6 @@ data/models/*
 !data/models/.gitkeep
 
 # Large data files
-data/raw/*
 !data/raw/.gitkeep
 data/processed/*
 !data/processed/.gitkeep
