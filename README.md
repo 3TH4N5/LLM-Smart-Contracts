@@ -25,8 +25,14 @@ smart-legal-contracts-nlp/
 │
 ├── data/
 │   ├── raw/
-│   │   ├── contracts/            # Raw legal contracts
-│   │   │   └── cuad/             # CUAD dataset
+│   │   ├── contracts/           # Raw legal contracts
+│   │   │   ├── cuad/            # CUAD dataset
+│   │   │   ├── standardized/    # Standardized contracts
+│   │   │      ├── edgar/        # SEC filings
+│   │   │      ├── onenda/       # OneNDA documents
+│   │   │      └── safe/         # SAFE agreements
+│   │   │
+│   │   │
 │   │   └── templates/            # Accord Project templates
 │   │       ├── acceptance-of-delivery/
 │   │       ├── bill-of-lading/
@@ -34,37 +40,65 @@ smart-legal-contracts-nlp/
 │   │       └── ...               # Other templates
 │   │
 │   ├── processed/                # Processed data
+│   │   ├── extracted_text/       # Plain text from docs
+│   │   ├── cleaned_text/         # Cleaned text
+│   │   ├── clauses/              # Extracted clauses
+│   │   └── templates/            # Generated templates
+│   │
 │   ├── models/                   # Saved ML models
+│   │   ├── ner/                  # Named entity recognition
+│   │   ├── classification/       # Clause classification
+│   │   └── generation/           # Template generation
+│   │
 │   └── embeddings/               # Vector embeddings
+│       ├── clause_embeddings/    # Clause-level embeddings
+│       └── document_embeddings/  # Document-level embeddings
 │
 ├── notebooks/                    # Jupyter notebooks for exploration
 │   ├── 01_data_exploration.ipynb
-│   ├── 02_entity_extraction.ipynb
-│   ├── 03_template_matching.ipynb
-│   └── 04_cicero_generation.ipynb
+│   ├── 02_preprocessing_evaluation.ipynb
+│   ├── 03_entity_extraction.ipynb
+│   ├── 04_template_matching.ipynb
+│   └── 05_cicero_generation.ipynb
 │
 ├── src/
 │   ├── preprocessing/            # Text preprocessing
 │   │   ├── __init__.py
-│   │   ├── text_cleaner.py       # Clean and normalize text
+│   │   ├── document_processor.py # Main orchestration
 │   │   ├── pdf_extractor.py      # Extract text from PDFs
-│   │   └── clause_segmenter.py   # Segment contracts into clauses
+│   │   ├── docx_extractor.py     # Extract text from DOCX
+│   │   ├── text_cleaner.py       # Clean and normalize text
+│   │   ├── clause_segmenter.py   # Segment contracts into clauses
+│   │   └── variable_identifier.py # Identify variables in text
 │   │
 │   ├── models/                   # ML models
 │   │   ├── __init__.py
 │   │   ├── entity_extractor.py   # Extract legal entities
 │   │   ├── template_matcher.py   # Match contracts to templates
-│   │   └── data_extractor.py     # Extract Concerto data
+│   │   ├── data_model_extractor.py # Extract Concerto data
+│   │   ├── clause_classifier.py  # Classify clauses by type
+│   │   ├── cicero_generator.py   # Generate CiceroMark
+│   │   ├── concerto_generator.py # Generate Concerto models
+│   │   ├── ergo_generator.py     # Generate Ergo logic
+│   │   └── state_machine_generator.py # Generate FSMs
 │   │
 │   ├── pipelines/                # Processing pipelines
 │   │   ├── __init__.py
-│   │   └── contract_processor.py # Main processing pipeline
+│   │   ├── contract_processor.py # Main processing pipeline
+│   │   ├── template_generation_pipeline.py
+│   │   ├── instance_processing_pipeline.py
+│   │   └── model_generation_pipeline.py
 │   │
-│   └── utils/                    # Utilities
+│   ├── utils/                    # Utilities
+│   │   ├── __init__.py
+│   │   ├── file_utils.py         # File operations
+│   │   ├── nlp_utils.py          # NLP helpers
+│   │   └── evaluation.py         # Evaluation metrics
+│   │
+│   └── config/                   # Configuration
 │       ├── __init__.py
-│       ├── cicero_generator.py   # Generate Cicero markup
-│       ├── concerto_generator.py # Generate Concerto models
-│       └── evaluation.py         # Evaluation metrics
+│       ├── settings.py           # Global settings
+│       └── model_config.py       # Model configurations
 │
 ├── app/                          # Web application
 │   ├── __init__.py
@@ -80,9 +114,19 @@ smart-legal-contracts-nlp/
 │
 ├── tests/                        # Unit tests
 │   ├── __init__.py
-│   ├── test_preprocessing.py
-│   ├── test_models.py
-│   └── test_pipelines.py
+│   ├── preprocessing/            # Tests for preprocessing
+│   │   ├── test_pdf_extractor.py
+│   │   ├── test_docx_extractor.py
+│   │   ├── test_text_cleaner.py
+│   │   ├── test_clause_segmenter.py
+│   │   └── test_variable_identifier.py
+│   │
+│   ├── models/                   # Tests for models
+│   │   ├── test_entity_extractor.py
+│   │   └── test_template_matcher.py
+│   │
+│   └── pipelines/                # Tests for pipelines
+│       └── test_contract_processor.py
 │
 ├── requirements.txt              # Python dependencies
 ├── README.md                     # Project documentation
