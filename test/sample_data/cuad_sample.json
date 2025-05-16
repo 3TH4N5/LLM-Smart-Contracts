@@ -1,0 +1,14 @@
+[
+    {
+      "doc_name": "SAFE_Discount",
+      "context": "This Agreement shall be governed by the laws of California.",
+      "qas": [
+        {
+          "question": "What is the governing law?",
+          "answer": "the laws of California",
+          "answer_start": 40
+        }
+      ]
+    }
+  ]
+  
