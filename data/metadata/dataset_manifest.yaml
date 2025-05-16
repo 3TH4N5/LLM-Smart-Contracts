@@ -1,0 +1,11 @@
+cuad:
+  description: "CUAD - Contract Understanding Atticus Dataset"
+  source: "https://cuad.law.stanford.edu"
+  use_case: "Clause classification, QA"
+  notes: "Public. Annotated. Legal domain fine-tuning gold standard."
+
+safe:
+  description: "Y Combinator SAFE templates"
+  source: "https://www.ycombinator.com/documents"
+  use_case: "Real-world contracts. Used for mapping to Cicero templates."
+  notes: "Requires manual template alignment."
