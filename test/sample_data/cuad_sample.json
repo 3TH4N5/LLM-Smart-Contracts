@@ -1,14 +1,27 @@
-[
-    {
-      "doc_name": "SAFE_Discount",
-      "context": "This Agreement shall be governed by the laws of California.",
-      "qas": [
-        {
-          "question": "What is the governing law?",
-          "answer": "the laws of California",
-          "answer_start": 40
-        }
-      ]
-    }
-  ]
+{
+    "version": "aok_v1.0",
+    "data": [
+      {
+        "title": "SAFE_Example",
+        "paragraphs": [
+          {
+            "context": "This Agreement shall be governed by the laws of California.",
+            "qas": [
+              {
+                "question": "Highlight the parts (if any) of this contract related to \"Governing Law\"...",
+                "id": "SAFE__Governing Law",
+                "is_impossible": false,
+                "answers": [
+                  {
+                    "text": "laws of California",
+                    "answer_start": 42
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
   

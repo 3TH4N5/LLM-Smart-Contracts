@@ -6,34 +6,34 @@ from typing import List, Dict, Tuple
 
 def load_cuad(filepath: Path) -> List[Dict]:
     """
-    Load CUAD dataset and return a list of entries.
-
-    Each entry contains:
-    - document title
-    - question text
-    - answer string
-    - answer_start index
-    - full context (clause)
+    Load CUAD (SQuAD-style) format.
+    Extract document title, question, first answer, and context.
     """
     with open(filepath, "r", encoding="utf-8") as f:
         data = json.load(f)
 
     parsed = []
-    for doc in data:
-        doc_name = doc.get("doc_name") or doc.get("title")
-        questions = doc.get("qas", [])
-        context = doc.get("context", "")
+    for doc in data["data"]:  # this is correct
+        title = doc.get("title", "unknown_title")
+        for para in doc.get("paragraphs", []):
+            context = para.get("context", "")
+            for qa in para.get("qas", []):
+                if qa.get("answers"):
+                    answer = qa["answers"][0]["text"]
+                    answer_start = qa["answers"][0]["answer_start"]
+                else:
+                    answer = ""
+                    answer_start = -1
 
-        for qa in questions:
-            parsed.append(
-                {
-                    "doc": doc_name,
-                    "question": qa["question"],
-                    "answer": qa["answer"],
-                    "answer_start": qa.get("answer_start", -1),
-                    "context": context,
-                }
-            )
+                parsed.append(
+                    {
+                        "doc": title,
+                        "question": qa["question"],
+                        "answer": answer,
+                        "answer_start": answer_start,
+                        "context": context,
+                    }
+                )
 
     return parsed
 
